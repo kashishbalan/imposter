@@ -1,0 +1,6 @@
+(executable
+ (public_name imposter)
+ (name main)
+ (libraries imposter)
+ (deps
+  (glob_files_rec ../data/*)))

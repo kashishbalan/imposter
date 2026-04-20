@@ -1,2 +1,3 @@
 (library
- (name imposter))
+ (name imposter)
+ (modules io_loop))

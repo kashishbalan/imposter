@@ -1,3 +1,5 @@
 (test
  (name test_imposter)
+ (deps
+  (glob_files_rec ../data/*))
  (libraries imposter))

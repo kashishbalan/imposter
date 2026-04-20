@@ -1,0 +1,50 @@
+Animals: lion, elephant, penguin, dolphin, cobra
+Fruits: mango, lychee, papaya, fig, guava
+Vegetables: kale, turnip, parsnip, leek, radish
+Furniture: ottoman, armoire, settee, daybed, credenza
+Kitchen tools: whisk, colander, ladle, mandoline, spatula
+Musical instruments: sitar, oboe, cello, xylophone, theremin
+Planets: Venus, Neptune, Mercury, Uranus, Saturn
+Sports: cricket, lacrosse, curling, fencing, polo
+Colors: magenta, chartreuse, crimson, ivory, cerulean
+Clothing: cardigan, beret, kimono, dungarees, blazer
+Jobs: notary, cobbler, actuary, sommelier, archivist
+Countries: Namibia, Bhutan, Latvia, Ecuador, Oman
+Weather: hail, sleet, blizzard, drought, monsoon
+Desserts: baklava, tiramisu, panna cotta, mochi, churro
+Transport: gondola, tram, rickshaw, ferry, cable car
+Emotions: elated, melancholy, flustered, content, anxious
+Superheroes: Wolverine, Thor, Flash, Aquaman, Rogue
+Ocean creatures: mantis shrimp, cuttlefish, nautilus, hagfish, orca
+Flowers: dahlia, peony, amaryllis, wisteria, snapdragon
+Spices: cardamom, sumac, turmeric, fenugreek, caraway
+Board games: Catan, Pandemic, Dominion, Terraforming Mars, Azul
+Mythical creatures: selkie, kirin, kraken, harpy, basilisk
+Drinks: kombucha, lassi, horchata, kefir, shrub
+Languages: Swahili, Farsi, Tamil, Catalan, Yoruba
+Artworks: fresco, mosaic, etching, lithograph, gouache
+Shapes: rhombus, trapezoid, heptagon, ellipse, crescent
+Card games: Pinochle, Canasta, Euchre, Spit, Snap
+Dances: flamenco, tango, polka, jive, bhangra
+Trees: baobab, sequoia, larch, jacaranda, cypress
+Cheeses: gruyère, manchego, havarti, brie, gorgonzola
+Reptiles: iguana, gecko, komodo, chameleon, skink
+Gems: alexandrite, tourmaline, carnelian, amethyst, peridot
+Currencies: rupee, krona, dirham, zloty, baht
+Cooking methods: braise, poach, sauté, parboil, render
+Phobias: trypophobia, arachnophobia, claustrophobia, acrophobia, xenophobia
+Fairy tale characters: Rumpelstiltskin, Thumbelina, Pied Piper, Rapunzel, Cinderella
+Body parts: clavicle, patella, sternum, tibia, mandible
+Mountains: Kilimanjaro, Aconcagua, Denali, Elbrus, K2
+Photography terms: aperture, bokeh, shutter, ISO, vignette
+Cocktails: Negroni, Sidecar, Gimlet, Daiquiri, Paloma
+Pasta types: pappardelle, fusilli, bucatini, orecchiette, farfalle
+Planets' moons: Titan, Io, Europa, Ganymede, Triton
+Fabric types: chiffon, tweed, organza, hessian, velvet
+Philosophers: Aristotle, Nietzsche, Hume, Wittgenstein, Sartre
+Hairstyles: mohawk, undercut, pompadour, cornrows, chignon
+Cleaning products: descaler, borax, lye, soda crystals, lemon zest
+Punctuation: semicolon, em dash, ellipsis, tilde, pilcrow
+Architecture styles: Baroque, Brutalist, Art Deco, Gothic, Bauhaus
+Birds: kookaburra, hoopoe, cassowary, ibis, loon
+TV genres: docuseries, telenovela, mockumentary, anthology, procedural

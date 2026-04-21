@@ -1,12 +1,72 @@
-(* Placeholder - Hannah's module will provide this *)
-let get_hints () : string list =
-  [ "it's sweet"; "it's a fruit"; "it's tropical"; "it's yellow" ]
+Random.self_init ();;
 
-(* Placeholder - Hannah's module will provide this *)
-let get_answer () : string = "mango"
+let load_categories () =
+  let ic = open_in "data/category.txt" in
+  let rec loop acc =
+    try
+      let line = input_line ic in
+      loop (String.trim line :: acc)
+    with End_of_file ->
+      close_in ic;
+      List.rev acc
+  in
+  loop []
 
-(* Placeholder - Hannah's module will provide this *)
-let get_category () : string = "Fruits"
+let load_words () =
+  let ic = open_in "data/words.txt" in
+  let rec loop acc =
+    try
+      let line = input_line ic in
+      let colon_pos = String.index line ':' in
+      let category = String.sub line 0 colon_pos |> String.trim in
+      let words_str =
+        String.sub line (colon_pos + 1) (String.length line - colon_pos - 1)
+        |> String.trim
+      in
+      let words = String.split_on_char ',' words_str |> List.map String.trim in
+      loop ((category, words) :: acc)
+    with End_of_file ->
+      close_in ic;
+      acc
+  in
+  let pairs = loop [] in
+  let map = Hashtbl.create (List.length pairs) in
+  List.iter (fun (cat, ws) -> Hashtbl.add map cat ws) pairs;
+  map
+
+let categories = load_categories ()
+let words_map = load_words ()
+let current_category = ref ""
+let current_answer = ref ""
+
+let get_category () =
+  let len = List.length categories in
+  let idx = Random.int len in
+  let cat = List.nth categories idx in
+  current_category := cat;
+  cat
+
+let get_answer () =
+  let words = Hashtbl.find words_map !current_category in
+  let len = List.length words in
+  let idx = Random.int len in
+  let ans = List.nth words idx in
+  current_answer := ans;
+  ans
+
+let get_hints () =
+  let words = Hashtbl.find words_map !current_category in
+  let other_words = List.filter (fun w -> w <> !current_answer) words in
+  let shuffled = List.sort (fun _ _ -> Random.int 3 - 1) other_words in
+  let rec take n l =
+    if n <= 0 then []
+    else
+      match l with
+      | [] -> []
+      | h :: t -> h :: take (n - 1) t
+  in
+  let hints_words = take 4 shuffled in
+  hints_words
 
 (* Main game loop *)
 let rec game_loop hints answer attempts =
@@ -32,8 +92,8 @@ let rec game_loop hints answer attempts =
 
 let run () =
   let category = get_category () in
-  let hints = get_hints () in
   let answer = get_answer () in
+  let hints = get_hints () in
   Printf.printf "Category: %s\n" category;
   print_endline "Try to guess the secret word!";
   print_endline "----------------------------";

@@ -57,24 +57,20 @@ let get_answer () =
 let get_hints () =
   let words = Hashtbl.find words_map !current_category in
   let other_words = List.filter (fun w -> w <> !current_answer) words in
-  let shuffled = List.sort (fun _ _ -> Random.int 3 - 1) other_words in
-  let rec take n l =
-    if n <= 0 then []
-    else
-      match l with
-      | [] -> []
-      | h :: t -> h :: take (n - 1) t
-  in
-  let hints_words = take 4 shuffled in
-  hints_words
+  other_words
 
 (* Main game loop *)
-let rec game_loop hints answer attempts =
-  match hints with
+let rec game_loop possible_hints previous_guesses answer attempts =
+  let available_hints =
+    List.filter (fun h -> not (List.mem h previous_guesses)) possible_hints
+  in
+  match available_hints with
   | [] ->
       print_endline ("No more hints! The word was: " ^ answer);
       print_endline "Better luck next time!"
-  | hint :: remaining_hints ->
+  | _ ->
+      let idx = Random.int (List.length available_hints) in
+      let hint = List.nth available_hints idx in
       Printf.printf "Hint: %s\n" hint;
       print_string "Your guess (or type 'give up'): ";
       let input = String.lowercase_ascii (String.trim (read_line ())) in
@@ -87,14 +83,20 @@ let rec game_loop hints answer attempts =
       end
       else begin
         print_endline "Not quite, here's another hint...";
-        game_loop remaining_hints answer (attempts + 1)
+        let new_possible_hints =
+          List.filter
+            (fun h -> String.lowercase_ascii h <> input && h <> hint)
+            possible_hints
+        in
+        let new_previous_guesses = input :: previous_guesses in
+        game_loop new_possible_hints new_previous_guesses answer (attempts + 1)
       end
 
 let run () =
   let category = get_category () in
   let answer = get_answer () in
-  let hints = get_hints () in
+  let possible_hints = get_hints () in
   Printf.printf "Category: %s\n" category;
   print_endline "Try to guess the secret word!";
   print_endline "----------------------------";
-  game_loop hints answer 0
+  game_loop possible_hints [] answer 0

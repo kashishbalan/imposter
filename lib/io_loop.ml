@@ -1,4 +1,16 @@
-Random.self_init ();;
+let () = Random.self_init ()
+
+(*ANSI Color Coding for the Terminal Interface*)
+let bold s   = "\027[1m"  ^ s ^ "\027[0m"
+let cyan s   = "\027[36m" ^ s ^ "\027[0m"
+let green s  = "\027[32m" ^ s ^ "\027[0m"
+let red s    = "\027[31m" ^ s ^ "\027[0m"
+let yellow s = "\027[33m" ^ s ^ "\027[0m"
+let dim s    = "\027[2m"  ^ s ^ "\027[0m"
+
+(*Layout*)
+let line ()  = print_endline (dim "────────────────────────────────────────")
+let blank () = print_newline ()
 
 let load_categories () =
   let ic = open_in "data/category.txt" in
@@ -38,6 +50,12 @@ let categories = load_categories ()
 let words_map = load_words ()
 let current_category = ref ""
 let current_answer = ref ""
+
+(* State *)
+let categories   = load_categories ()
+let words_map    = load_words ()
+let current_category = ref ""
+let current_answer   = ref ""
 
 let get_category () =
   let len = List.length categories in

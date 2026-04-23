@@ -1,15 +1,16 @@
 let () = Random.self_init ()
 
 (*ANSI Color Coding for the Terminal Interface*)
-let bold s   = "\027[1m"  ^ s ^ "\027[0m"
-let cyan s   = "\027[36m" ^ s ^ "\027[0m"
-let green s  = "\027[32m" ^ s ^ "\027[0m"
-let red s    = "\027[31m" ^ s ^ "\027[0m"
+let bold s = "\027[1m" ^ s ^ "\027[0m"
+let cyan s = "\027[36m" ^ s ^ "\027[0m"
+let green s = "\027[32m" ^ s ^ "\027[0m"
+let red s = "\027[31m" ^ s ^ "\027[0m"
 let yellow s = "\027[33m" ^ s ^ "\027[0m"
-let dim s    = "\027[2m"  ^ s ^ "\027[0m"
+let dim s = "\027[2m" ^ s ^ "\027[0m"
 
 (*Layout*)
-let line ()  = print_endline (dim "────────────────────────────────────────")
+let line () = print_endline (dim "────────────────────────────────────────")
+
 let blank () = print_newline ()
 
 let load_categories () =
@@ -47,10 +48,10 @@ let load_words () =
   map
 
 (* State *)
-let categories   = load_categories ()
-let words_map    = load_words ()
+let categories = load_categories ()
+let words_map = load_words ()
 let current_category = ref ""
-let current_answer   = ref ""
+let current_answer = ref ""
 
 (* Helpers *)
 let get_category () =
@@ -89,9 +90,7 @@ let print_title () =
   blank ()
 
 let print_header category =
-  Printf.printf "  %s  %s\n"
-    (bold "Category:")
-    (cyan (bold category));
+  Printf.printf "  %s  %s\n" (bold "Category:") (cyan (bold category));
   Printf.printf "  %s\n"
     (dim "You are the imposter. Guess the secret word using the hints.");
   blank ();
@@ -99,9 +98,7 @@ let print_header category =
 
 let print_hint_row n word =
   blank ();
-  Printf.printf "  %s  %s\n"
-    (yellow (Printf.sprintf "[Hint %d]" n))
-    (bold word)
+  Printf.printf "  %s  %s\n" (yellow (Printf.sprintf "[Hint %d]" n)) (bold word)
 
 let print_all_hints_so_far hints_seen =
   List.iteri (fun i h -> print_hint_row (i + 1) h) hints_seen
@@ -130,9 +127,7 @@ let print_correct attempts =
 
 let print_wrong guess =
   blank ();
-  Printf.printf "  %s  \"%s\" is not the word.\n"
-    (red "X")
-    (dim guess)
+  Printf.printf "  %s  \"%s\" is not the word.\n" (red "X") (dim guess)
 
 let print_gave_up answer =
   blank ();
@@ -159,17 +154,15 @@ let rec game_loop possible_hints previous_guesses answer attempts =
     List.filter (fun h -> not (List.mem h previous_guesses)) possible_hints
   in
   match available_hints with
-  | [] ->
-      print_no_hints answer
+  | [] -> print_no_hints answer
   | _ ->
       let idx = Random.int (List.length available_hints) in
       let hint = List.nth available_hints idx in
       print_hint_row (attempts + 1) hint;
       print_prompt ();
       let input = String.lowercase_ascii (String.trim (read_line ())) in
-      if input = "give up" then 
-        print_gave_up answer
-      else if input = String.lowercase_ascii answer then 
+      if input = "give up" then print_gave_up answer
+      else if input = String.lowercase_ascii answer then
         print_correct (attempts + 1)
       else begin
         print_wrong input;
@@ -194,4 +187,4 @@ let rec run () =
   let again = String.lowercase_ascii (String.trim (read_line ())) in
   if again = "y" then begin
     run ()
-  end 
+  end

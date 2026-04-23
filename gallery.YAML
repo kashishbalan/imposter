@@ -1,0 +1,33 @@
+---
+# Members of your group.
+group:
+  - name: Kashish Balan
+    netid: kdb89
+  - name: Sanaa Bhorkar
+    netid: sb2759
+  - name: Prisha Rai
+    netid: pr482
+  - name: Hannah Jacob
+    netid: htj7
+
+# Your PM.
+pm:
+  name: Alan Chen
+  netid: ac2843
+# Set to false if you don't want your gallery entry to be public.
+publish: false
+# Pithy title
+title: "Imposter: The Social Word Deduction Game"
+# OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
+git-repo: "https://github.coecis.cornell.edu/htj7/cs3110-project"
+# Replace the URL with your own demo video.
+demo-video-url: https://youtu.be/1t8jKQ3xpEM"
+# Write a short, attention-grabbing description of your project.
+desc: >
+  Imposter is a word-guessing game where you're the imposter — you don't know
+  the secret word. Other players give each other one-word hints about a word
+  you can't see, and you have to figure it out from context before anyone
+  votes you out.
+
+  The game supports 3–8 players, a real-time hint phase, a voting round, and
+  score tracking across multiple games.

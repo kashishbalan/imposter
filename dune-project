@@ -19,7 +19,7 @@
  (name imposter)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml)
+ (depends ocaml bisect_ppx)
  (tags
   ("add topics" "to describe" your project)))
 

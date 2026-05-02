@@ -1,7 +1,24 @@
 type words_map = (string, string list) Hashtbl.t
 
+let project_root () =
+  let start =
+    if Filename.is_relative Sys.executable_name then Sys.getcwd ()
+    else Filename.dirname Sys.executable_name
+  in
+  let rec find dir =
+    let candidate = Filename.concat dir "data/category.txt" in
+    if Sys.file_exists candidate then dir
+    else
+      let parent = Filename.dirname dir in
+      if parent = dir then failwith "Could not locate data/category.txt"
+      else find parent
+  in
+  find start
+
+let data_file path = Filename.concat (project_root ()) path
+
 let load_categories () =
-  let ic = open_in "data/category.txt" in
+  let ic = open_in (data_file "data/category.txt") in
   let rec loop acc =
     try
       let line = input_line ic in
@@ -13,7 +30,7 @@ let load_categories () =
   loop []
 
 let load_words () =
-  let ic = open_in "data/words.txt" in
+  let ic = open_in (data_file "data/words.txt") in
   let rec loop acc =
     try
       let line = input_line ic in

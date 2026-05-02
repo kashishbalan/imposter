@@ -57,7 +57,7 @@ let print_header category =
 let print_hint_row n word =
   blank ();
   Printf.printf "  %s  %s\n" (yellow (Printf.sprintf "[Hint %d]" n)) (bold word)
-  
+
 let print_prompt () =
   blank ();
   print_string (dim "  Your guess (or 'give up'): ");
@@ -135,3 +135,23 @@ let rec run () =
   if again = "y" then begin
     run ()
   end
+
+module Test = struct
+  let bold = bold
+  let cyan = cyan
+  let green = green
+  let red = red
+  let yellow = yellow
+  let dim = dim
+  let clear_screen = clear_screen
+  let print_header = print_header
+  let print_hint_row = print_hint_row
+  let print_prompt = print_prompt
+  let print_correct = print_correct
+  let print_wrong = print_wrong
+  let print_gave_up = print_gave_up
+  let print_no_hints = print_no_hints
+  let get_category = get_category
+  let get_answer = get_answer
+  let game_loop = game_loop
+end

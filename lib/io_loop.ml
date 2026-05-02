@@ -13,43 +13,9 @@ let line () = print_endline (dim "───────────────�
 
 let blank () = print_newline ()
 
-let load_categories () =
-  let ic = open_in "data/category.txt" in
-  let rec loop acc =
-    try
-      let line = input_line ic in
-      loop (String.trim line :: acc)
-    with End_of_file ->
-      close_in ic;
-      List.rev acc
-  in
-  loop []
-
-let load_words () =
-  let ic = open_in "data/words.txt" in
-  let rec loop acc =
-    try
-      let line = input_line ic in
-      let colon_pos = String.index line ':' in
-      let category = String.sub line 0 colon_pos |> String.trim in
-      let words_str =
-        String.sub line (colon_pos + 1) (String.length line - colon_pos - 1)
-        |> String.trim
-      in
-      let words = String.split_on_char ',' words_str |> List.map String.trim in
-      loop ((category, words) :: acc)
-    with End_of_file ->
-      close_in ic;
-      acc
-  in
-  let pairs = loop [] in
-  let map = Hashtbl.create (List.length pairs) in
-  List.iter (fun (cat, ws) -> Hashtbl.add map cat ws) pairs;
-  map
-
 (* State *)
-let categories = load_categories ()
-let words_map = load_words ()
+let categories = Game.load_categories ()
+let words_map = Game.load_words ()
 let current_category = ref ""
 let current_answer = ref ""
 
@@ -68,14 +34,6 @@ let get_answer () =
   let ans = List.nth words idx in
   current_answer := ans;
   ans
-
-let get_hints () =
-  let words = Hashtbl.find words_map !current_category in
-  let other_words = List.filter (fun w -> w <> !current_answer) words in
-  other_words
-  |> List.map (fun x -> (Random.bits (), x))
-  |> List.sort (fun (a, _) (b, _) -> compare a b)
-  |> List.map snd
 
 (* Display *)
 let clear_screen () =
@@ -99,18 +57,7 @@ let print_header category =
 let print_hint_row n word =
   blank ();
   Printf.printf "  %s  %s\n" (yellow (Printf.sprintf "[Hint %d]" n)) (bold word)
-
-let print_all_hints_so_far hints_seen =
-  List.iteri (fun i h -> print_hint_row (i + 1) h) hints_seen
-
-let print_status ~hints_seen ~attempts =
-  blank ();
-  line ();
-  Printf.printf "  %s used  |  %s given\n"
-    (dim (Printf.sprintf "%d attempt(s)" attempts))
-    (dim (Printf.sprintf "%d hint(s)" (List.length hints_seen)));
-  line ()
-
+  
 let print_prompt () =
   blank ();
   print_string (dim "  Your guess (or 'give up'): ");
@@ -180,7 +127,7 @@ let rec run () =
   print_title ();
   let category = get_category () in
   let answer = get_answer () in
-  let possible_hints = get_hints () in
+  let possible_hints = Game.get_hints words_map category answer in
   print_header category;
   game_loop possible_hints [] answer 0;
   print_play_again ();

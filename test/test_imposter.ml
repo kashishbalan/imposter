@@ -9,7 +9,7 @@ let contains_substring ~substr s =
   in
   loop 0
 
-let assert_contains ~ctxt substr s =
+let assert_contains ~ctxt:_ substr s =
   assert_bool
     ("Expected output to contain: " ^ substr)
     (contains_substring ~substr s)

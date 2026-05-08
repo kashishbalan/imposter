@@ -1,4 +1,3 @@
-(executable
- (public_name imposter)
- (name main)
+(executables
+ (names server_main client_main)
  (libraries imposter))
